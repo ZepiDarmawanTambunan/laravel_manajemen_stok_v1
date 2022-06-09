@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductsIn;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class ProductsInController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class ProductsInController extends Controller
      */
     public function index()
     {
-        $products = ProductsIn::orderBy('nama_barang', 'asc')->get();
-        return view('barang.barang_masuk', compact('products'));
+        $products = Product::orderby('id_barang', 'asc')->get();
+        return view('data_barang.data_barang', compact('products'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProductsInController extends Controller
      */
     public function create()
     {
-        return view('barang.add_barang_masuk');
+        return view('data_barang.add');
     }
 
     /**
@@ -37,31 +37,26 @@ class ProductsInController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = [];
         $validatedData = $request->validate([
-            'nama_barang' => 'required|unique:products_ins',
-            'jumlah_barang' => 'required|numeric',
-            'harga_satuan' => 'required|numeric',
-            'tanggal_masuk' => 'required'
+            'id_barang' => 'required|unique:products',
+            'nama_barang' => 'required|unique:products',
+            'harga_satuan' => 'required',
         ]);
 
         if ($validatedData) {
-            ProductsIn::create($validatedData);
+            Product::create($validatedData);
             Alert::success('Success', 'Data berhasil ditambahkan');
-            return redirect('/barang_masuk');
+            return redirect('/daftar_barang');
         }
-
-        return redirect()->back()
-        ->with('error', 'Data gagal ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
         //
     }
@@ -69,22 +64,22 @@ class ProductsInController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        return view('barang.edit_barang_masuk');
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
         //
     }
@@ -92,12 +87,11 @@ class ProductsInController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        ProductsIn::find($id)->delete();
-        return redirect()->back();
+        //
     }
 }

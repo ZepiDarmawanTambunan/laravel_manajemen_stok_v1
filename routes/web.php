@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductsInController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route Dashboard
 Route::get('/', function () {
     return view('dashboard');
 })->middleware('auth');
@@ -25,6 +28,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
+// Route Barang Masuk
 Route::get('/barang_masuk', [ProductsInController::class, 'index'])
 ->middleware('auth');
 Route::get('/barang_masuk/add', [ProductsInController::class, 'create'])
@@ -35,6 +39,11 @@ Route::get('/barang_masuk/edit/{id}', [ProductsInController::class, 'edit'])
 ->middleware('auth');
 Route::get('/barang_masuk/delete/{id}', [ProductsInController::class, 'destroy'])
 ->middleware('auth');
+
+// Route Daftar Barang
+Route::get('/daftar_barang', [ProductController::class, 'index'])->middleware('auth');
+Route::get('/daftar_barang/add', [ProductController::class, 'create'])->middleware('auth');
+Route::post('/daftar_barang/store', [ProductController::class, 'store'])->middleware('auth');
 
 
 

@@ -6,7 +6,7 @@
 </head>
 
 <body onload=startTime()>
-
+    @include('sweetalert::alert')
     @include('partial.sidebar')
     <div class="container">
         @yield('content')

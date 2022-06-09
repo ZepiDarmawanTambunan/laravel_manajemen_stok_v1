@@ -14,7 +14,7 @@
 </div>
 <div class="card">
   <div class="card-header">
-      <h4 class="card-title">Selamat datang Di Sistem Manajemen Stok Barang Toko Jago</h4>
+      <h4 class="card-title">Selamat Datang di Sistem Manajemen Stok Barang Toko Jago</h4>
   </div>
   <div class="card-body">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quas omnis laudantium tempore
