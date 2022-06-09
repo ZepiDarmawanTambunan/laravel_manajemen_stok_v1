@@ -5,7 +5,7 @@
     @include('partial.head')
 </head>
 
-<body>
+<body onload=startTime()>
 
     @include('partial.sidebar')
     <div class="container">

@@ -60,20 +60,20 @@
 </div>
 
 <script>
-    $('.btn-delete').on('click', function(){
+    $('.btn-delete').on('click', function() {
         var dataId = $(this).attr('data-id')
         var dataName = $(this).attr('data-name')
         Swal.fire({
-            title: 'Are you sure want to delete '+dataName+ ' ?',
+            title: 'Are you sure want to delete ' + dataName + ' ?',
             text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-                window.location = "/barang_masuk/delete/"+dataId+""
+                window.location = "/barang_masuk/delete/" + dataId + ""
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
