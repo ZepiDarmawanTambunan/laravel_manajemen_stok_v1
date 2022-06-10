@@ -90,8 +90,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        Product::where('id_barang', $id)->delete();
+        return redirect()->back();
     }
 }

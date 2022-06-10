@@ -15,7 +15,8 @@ class ProductsInController extends Controller
      */
     public function index()
     {
-        $products = ProductsIn::orderBy('nama_barang', 'asc')->get();
+        $products = ProductsIn::orderBy('nama_barang', 'asc')
+                    ->get();
         return view('barang.barang_masuk', compact('products'));
     }
 

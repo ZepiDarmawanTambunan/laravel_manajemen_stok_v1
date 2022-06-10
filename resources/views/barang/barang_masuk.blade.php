@@ -4,7 +4,7 @@
   <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
           <h3>Barang Masuk</h3>
-          <p class="text-subtitle text-muted">Daftar Barang Masuk</p>
+          <p class="text-subtitle text-muted">Daftar Barang Masuk Bulan {{ date('F') }}</p>
       </div>
   </div>
 </div>  
@@ -37,20 +37,26 @@
                           </tr>
                       </thead>
                       <tbody>
-                          @foreach ($products as $product)
+                          @if ($products->count())
+                            @foreach ($products as $product)
                             <tr>
-                              <td>{{ $loop->iteration }}</td>
-                              <td>{{ $product->nama_barang }}</td>  
-                              <td>{{ $product->jumlah_barang }}</td>  
-                              <td>Rp. {{ number_format($product->harga_satuan, 0, '.', '.') }}</td>  
-                              <td>Rp. {{ number_format($product->jumlah_barang*$product->harga_satuan, 0, '.', '.') }}</td>  
-                              <td>{{ $product->tanggal_masuk }}</td>  
-                              <td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $product->nama_barang }}</td>  
+                                <td>{{ $product->jumlah_barang }}</td>  
+                                <td>Rp. {{ number_format($product->harga_satuan, 0, '.', '.') }}</td>  
+                                <td>Rp. {{ number_format($product->jumlah_barang*$product->harga_satuan, 0, '.', '.') }}</td>  
+                                <td>{{ $product->tanggal_masuk }}</td>  
+                                <td>
                                 <a href="/barang_masuk/edit/{{ $product->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <button class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}" onclick="delete({{ $product->id }})"><i class="fa-regular fa-trash-can"></i></button>
-                              </td>  
+                                <button class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}"><i class="fa-regular fa-trash-can"></i></button>
+                                </td>  
                             </tr>       
-                          @endforeach          
+                            @endforeach          
+                          @else
+                              <tr>
+                                  Data masih kosong
+                              </tr>
+                          @endif
                       </tbody>
                   </table>
               </div>

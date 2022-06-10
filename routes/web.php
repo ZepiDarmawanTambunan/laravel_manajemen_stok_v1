@@ -43,6 +43,7 @@ Route::get('/barang_masuk/delete/{id}', [ProductsInController::class, 'destroy']
 // Route Daftar Barang
 Route::get('/daftar_barang', [ProductController::class, 'index'])->middleware('auth');
 Route::get('/daftar_barang/add', [ProductController::class, 'create'])->middleware('auth');
+Route::get('/daftar_barang/delete/{id}', [ProductController::class, 'destroy'])->middleware('auth');
 Route::post('/daftar_barang/store', [ProductController::class, 'store'])->middleware('auth');
 
 
