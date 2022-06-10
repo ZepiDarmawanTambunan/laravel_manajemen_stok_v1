@@ -3,8 +3,8 @@
         <div class="sidebar-wrapper active">
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
-                    <div class="logo mx-3">
-                        <a href=""><img src="" srcset="">TOKO JAGO</a>
+                    <div class="logo mx-2 text-center">
+                        <a href="/">TOKO JAGO</a>
                     </div>
                     <div class="toggler">
                         <a href="" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -78,12 +78,11 @@
                                     <li>
                                         <h6 class="dropdown-header">Hello, {{ auth()->user()->username }}!</h6>
                                     </li>
-                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
-                                            Profile</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My Profile</a></li>
                                     <hr class="dropdown-divider">
                                     </li>
                                     <li><a class="dropdown-item" href="/logout"><i
-                                                class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a>
+                                    class="icon-mid bi bi-box-arrow-left me-2"></i>Logout</a>
                                     </li>
                                 </ul>
                             </div>

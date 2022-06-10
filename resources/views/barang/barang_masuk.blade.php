@@ -47,7 +47,7 @@
                               <td>{{ $product->tanggal_masuk }}</td>  
                               <td>
                                 <a href="/barang_masuk/edit/{{ $product->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <a href="#" class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}"><i class="fa-regular fa-trash-can"></i></a>
+                                <button class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}" onclick="delete({{ $product->id }})"><i class="fa-regular fa-trash-can"></i></button>
                               </td>  
                             </tr>       
                           @endforeach          
@@ -60,7 +60,8 @@
 </div>
 
 <script>
-    $('.btn-delete').on('click', function() {
+    $('.btn-delete').on('click', function(e) {
+        e.preventDefault();
         var dataId = $(this).attr('data-id')
         var dataName = $(this).attr('data-name')
         Swal.fire({
