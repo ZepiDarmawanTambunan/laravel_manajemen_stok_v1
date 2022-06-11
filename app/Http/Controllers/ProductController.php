@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderby('id_barang', 'asc')->get();
+        $products = Product::orderby('kode_barang', 'asc')->get();
         return view('data_barang.data_barang', compact('products'));
     }
 
@@ -38,7 +39,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'id_barang' => 'required|unique:products',
+            'kode_barang' => 'required|unique:products',
             'nama_barang' => 'required|unique:products',
             'harga_satuan' => 'required|integer',
         ]);
@@ -67,9 +68,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::where('id', $id)->first();
+        return view('data_barang.edit', compact('product'));
     }
 
     /**
@@ -79,9 +81,17 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'kode_barang' => ['required', Rule::unique('products')->ignore($request->id)],
+            'nama_barang' => ['required', Rule::unique('products')->ignore($request->id)],
+            'harga_satuan' => 'required|numeric',
+        ]);
+
+        Product::where('id', $id)->update($validatedData);
+        Alert::success('Success', 'Data berhasil diupdate');
+        return redirect('/daftar_barang');
     }
 
     /**

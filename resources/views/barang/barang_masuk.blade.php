@@ -1,7 +1,7 @@
 @extends('base.main')
 @section('content')
 <div class="page-title">
-  <div class="row">
+  <div class="row m-3">
       <div class="col-12 col-md-6 order-md-1 order-last">
           <h3>Barang Masuk</h3>
           <p class="text-subtitle text-muted">Daftar Barang Masuk Bulan {{ date('F') }}</p>
@@ -94,33 +94,6 @@
                 Swal.fire('Data tidak jadi dihapus')
             }
         })
-
     })
-
-    // $('.btn-delete').on('click', function(e) {
-    //     e.preventDefault();
-    //     var dataId = $(this).attr('data-id')
-    //     var dataName = $(this).attr('data-name')
-    //     Swal.fire({
-    //         title: 'Are you sure want to delete ' + dataName + ' ?',
-    //         text: "You won't be able to revert this!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, delete it!'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             window.location = "/barang_masuk/delete/" + dataId + ""
-    //             Swal.fire(
-    //                 'Deleted!',
-    //                 'Data berhasil dihapus',
-    //                 'success'
-    //             )
-    //         } else {
-    //             Swal.fire('Data tidak jadi dihapus')
-    //         }
-    //     })
-    // })
 </script>
 @endsection

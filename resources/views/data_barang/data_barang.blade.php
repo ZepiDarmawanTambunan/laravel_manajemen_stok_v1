@@ -1,7 +1,7 @@
 @extends('base.main')
 @section('content')
 <div class="page-title">
-  <div class="row">
+  <div class="row m-3">
       <div class="col-12 col-md-6 order-md-1 order-last">
           <h3>Data Barang</h3>
           <p class="text-subtitle text-muted">Daftar Data Barang</p>
@@ -38,12 +38,12 @@
                             @foreach ($products as $product)
                             <tr id="product{{ $product->id_barang }}">
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $product->id_barang }}</td>  
+                                <td>{{ $product->kode_barang }}</td>  
                                 <td>{{ $product->nama_barang }}</td>  
                                 <td>Rp. {{ number_format($product->harga_satuan, 0, '.', '.') }}</td>  
                                 <td>
-                                <a href="/daftar_barang/edit/{{ $product->id_barang }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id_barang }}" data-name="{{ $product->nama_barang }}"><i class="fa-regular fa-trash-can"></i></a>
+                                <a href="/daftar_barang/edit/{{ $product->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}"><i class="fa-regular fa-trash-can"></i></a>
                                 </td>  
                             </tr>       
                             @endforeach

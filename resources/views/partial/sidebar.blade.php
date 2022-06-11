@@ -3,7 +3,7 @@
         <div class="sidebar-wrapper active">
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
-                    <div class="logo mx-2 text-center">
+                    <div class="logo mx-2 fs-3 text-center">
                         <a href="/">TOKO JAGO</a>
                     </div>
                     <div class="toggler">
@@ -68,7 +68,7 @@
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md me-3">
-                                                <img src="../template/dist/assets/images/faces/2.jpg" alt="" srcset="">
+                                                <img src="../../template/dist/assets/images/faces/2.jpg" alt="" srcset="">
                                             </div>
                                         </div>
                                     </div>

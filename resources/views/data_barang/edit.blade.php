@@ -2,9 +2,9 @@
 @section('content')
 
 <div class="page-title">
-  <div class="row">
+  <div class="row m-3">
       <div class="col-12 col-md-6 order-md-1 order-last">
-          <h3>Add Data Barang</h3>
+          <h3>Edit Data Barang</h3>
       </div>
   </div>
 </div>
@@ -16,11 +16,11 @@
 @endif  
 <div class="card">
   <div class="card-body">
-    <form action="/daftar_barang/store" method="POST">
+    <form action="/daftar_barang/update/{{ $product->id }}" method="POST">
       @csrf
       <div class="form-group col-8">
         <label>Kode Barang</label>
-        <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror" id="kode_barang" placeholder="Kode Barang" value="{{ old('kode_barang') }}">
+        <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror" id="kode_barang" placeholder="Kode Barang" value={{ $product->kode_barang }}>
         @error('kode_barang')
           <div class="invalid-feedback">
             {{ $message }}
@@ -29,7 +29,7 @@
       </div>
       <div class="form-group col-8">
         <label>Nama Barang</label>
-        <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror" id="nama_barang" placeholder="Nama Barang" value="{{ old('nama_barang') }}">
+        <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror" id="nama_barang" placeholder="Nama Barang" value="{{ $product->nama_barang }}">
         @error('nama_barang')
           <div class="invalid-feedback">
             {{ $message }}
@@ -38,7 +38,7 @@
       </div>
       <div class="form-group col-8">
         <label>Harga Satuan</label>
-        <input type="text" name="harga_satuan" class="form-control @error('harga_satuan') is-invalid @enderror" id="harga_satuan" placeholder="Harga Satuan" value="{{ old('harga_satuan') }}">
+        <input type="text" name="harga_satuan" class="form-control @error('harga_satuan') is-invalid @enderror" id="harga_satuan" placeholder="Harga Satuan" value="{{ $product->harga_satuan }}">
         @error('harga_satuan')
           <div class="invalid-feedback">
             {{ $message }}
