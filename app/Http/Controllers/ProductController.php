@@ -40,7 +40,7 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'id_barang' => 'required|unique:products',
             'nama_barang' => 'required|unique:products',
-            'harga_satuan' => 'required',
+            'harga_satuan' => 'required|integer',
         ]);
 
         if ($validatedData) {

@@ -39,7 +39,7 @@
                       <tbody>
                           @if ($products->count())
                             @foreach ($products as $product)
-                            <tr>
+                            <tr id="product{{ $product->id }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->nama_barang }}</td>  
                                 <td>{{ $product->jumlah_barang }}</td>  
@@ -48,14 +48,14 @@
                                 <td>{{ $product->tanggal_masuk }}</td>  
                                 <td>
                                 <a href="/barang_masuk/edit/{{ $product->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <button class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}"><i class="fa-regular fa-trash-can"></i></button>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}"><i class="fa-regular fa-trash-can"></i></a>
                                 </td>  
                             </tr>       
                             @endforeach          
                           @else
-                              <tr>
+                              <h4 class="text-center">
                                   Data masih kosong
-                              </tr>
+                              </h4>
                           @endif
                       </tbody>
                   </table>
@@ -66,12 +66,11 @@
 </div>
 
 <script>
-    $('.btn-delete').on('click', function(e) {
-        e.preventDefault();
-        var dataId = $(this).attr('data-id')
-        var dataName = $(this).attr('data-name')
+    $('.btn-delete').on('click', function(){
+        var Id = $(this).data('id')
+        var name = $(this).data('name')
         Swal.fire({
-            title: 'Are you sure want to delete ' + dataName + ' ?',
+            title: "Are you sure want to delete "+name+" ?",
             text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
@@ -80,16 +79,48 @@
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location = "/barang_masuk/delete/" + dataId + ""
-                Swal.fire(
-                    'Deleted!',
-                    'Data berhasil dihapus',
-                    'success'
-                )
+                $.ajax({
+                    type: "GET",
+                    url: '/barang_masuk/delete/'+Id,
+                    success: function (data) {
+                        Swal.fire('Deleted !', 'Data berhasil dihapus', 'success')
+                        $("#product"+Id).remove()              
+                    },
+                    error: function (data) {
+                        console.log('Error', data);
+                    }
+                });
             } else {
                 Swal.fire('Data tidak jadi dihapus')
             }
         })
+
     })
+
+    // $('.btn-delete').on('click', function(e) {
+    //     e.preventDefault();
+    //     var dataId = $(this).attr('data-id')
+    //     var dataName = $(this).attr('data-name')
+    //     Swal.fire({
+    //         title: 'Are you sure want to delete ' + dataName + ' ?',
+    //         text: "You won't be able to revert this!",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, delete it!'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             window.location = "/barang_masuk/delete/" + dataId + ""
+    //             Swal.fire(
+    //                 'Deleted!',
+    //                 'Data berhasil dihapus',
+    //                 'success'
+    //             )
+    //         } else {
+    //             Swal.fire('Data tidak jadi dihapus')
+    //         }
+    //     })
+    // })
 </script>
 @endsection
