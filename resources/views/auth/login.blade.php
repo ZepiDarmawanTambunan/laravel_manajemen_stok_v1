@@ -19,7 +19,7 @@
     <div class="col-lg-8 col-12">
         <div id="auth-left">
             <h1 class="auth-title">Log in.</h1>
-            <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+            <p class="auth-subtitle mb-5">Sistem Manajemen Stok Barang</p>
             @if (session()->has('error'))
               <div class="alert alert-danger alert-dismissible show fade">
                 {{ session('error') }}

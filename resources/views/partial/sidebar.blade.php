@@ -3,7 +3,8 @@
         <div class="sidebar-wrapper active">
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
-                    <div class="logo mx-2 fs-3 text-center">
+                    <div class="logo mx-2 fs-3 text-center d-flex flex-column">
+                        <img src="../../template2/images/TJ.png" style="width: 70px; height: 70px">
                         <a href="/">TOKO JAGO</a>
                     </div>
                     <div class="toggler">
