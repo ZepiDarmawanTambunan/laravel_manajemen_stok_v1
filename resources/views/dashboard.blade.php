@@ -15,9 +15,6 @@
         <div class="card-header">
             <h4 class="card-title">Selamat Datang di Sistem Manajemen Stok Barang Toko Jago</h4>
         </div>
-        <div class="card-body">
-            
-        </div>
       </div>
     </div>
   </div>

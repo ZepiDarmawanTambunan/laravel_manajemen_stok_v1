@@ -15,4 +15,5 @@ class ProductsIn extends Model
         'harga_satuan',
         'tanggal_masuk',
     ];
+
 }

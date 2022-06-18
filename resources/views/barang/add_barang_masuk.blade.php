@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="page-title">
-  <div class="row">
+  <div class="row m-3">
       <div class="col-12 col-md-6 order-md-1 order-last">
           <h3>Add Barang Masuk</h3>
       </div>
@@ -20,12 +20,11 @@
       @csrf
       <div class="form-group col-8">
         <label>Nama Barang</label>
-        <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror" id="nama_barang" placeholder="Nama Barang" value="{{ old('nama_barang') }}">
-        @error('nama_barang')
-          <div class="invalid-feedback">
-            {{ $message }}
-          </div>
-        @enderror
+        <select class="form-select" name="nama_barang" id="nama_barang">
+          @foreach ($products as $product)
+              <option value="{!! $product->nama_barang !!}">{!! $product->nama_barang !!}</option>
+          @endforeach
+        </select>
       </div>
       <div class="form-group col-8">
         <label>Jumlah Barang</label>

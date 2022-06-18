@@ -30,6 +30,7 @@
                               <th>Kode Barang</th>
                               <th>Nama Barang</th>
                               <th>Harga Satuan</th>
+                              <th>Stok</th>
                               <th>Aksi</th>
                           </tr>
                       </thead>
@@ -41,6 +42,7 @@
                                 <td>{{ $product->kode_barang }}</td>  
                                 <td>{{ $product->nama_barang }}</td>  
                                 <td>Rp. {{ number_format($product->harga_satuan, 0, '.', '.') }}</td>  
+                                <td>{{ $product->stok }}</td>  
                                 <td>
                                 <a href="/daftar_barang/edit/{{ $product->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}"><i class="fa-regular fa-trash-can"></i></a>

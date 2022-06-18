@@ -21,19 +21,11 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="sidebar-item  has-sub">
-                        <a href="" class='sidebar-link'>
+                    <li class="sidebar-item">
+                        <a href="/daftar_barang" class='sidebar-link'>
                             <i class="bi bi-stack"></i>
-                            <span>Data Barang</span>
+                            <span>Stok Barang</span>
                         </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="/daftar_barang">Daftar Barang</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="">Stok Barang</a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="sidebar-item">
                         <a href="/barang_masuk" class='sidebar-link'>
@@ -41,15 +33,23 @@
                             <span>Barang Masuk</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a href="" class='sidebar-link'>
+                            <i class="bi bi-grid-1x2"></i>
+                            <span>Barang Keluar</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
-            <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            <button class="sidebar-toggler btn x">
+                <i data-feather="x"></i>
+            </button>
         </div>
     </div>
     <div id="main" class='layout-navbar'>
         <header class='mb-2'>
             <nav class="navbar navbar-expand navbar-light ">
-                <div class="container-fluid">
+                <div class="container">
                     <a href="#" class="burger-btn d-block">
                         <i class="bi bi-justify fs-3"></i>
                     </a>

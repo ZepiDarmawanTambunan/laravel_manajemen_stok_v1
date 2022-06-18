@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\ProductsIn;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -27,7 +28,8 @@ class ProductsInController extends Controller
      */
     public function create()
     {
-        return view('barang.add_barang_masuk');
+        $products = Product::orderBy('nama_barang', 'asc')->get();
+        return view('barang.add_barang_masuk', compact('products'));
     }
 
     /**
@@ -40,20 +42,25 @@ class ProductsInController extends Controller
     {
         $validatedData = [];
         $validatedData = $request->validate([
-            'nama_barang' => 'required|unique:products_ins',
+            'nama_barang' => 'required',
             'jumlah_barang' => 'required|numeric',
             'harga_satuan' => 'required|numeric',
             'tanggal_masuk' => 'required'
         ]);
 
+        $validatedData['total_harga'] = $request->jumlah_barang * $request->harga_satuan;
+        
         if ($validatedData) {
+            $product = Product::where('nama_barang', $request->nama_barang)->first();
+            $product->stok = (int)$product->stok + (int)$request->jumlah_barang;
+            $product->save();
             ProductsIn::create($validatedData);
             Alert::success('Success', 'Data berhasil ditambahkan');
             return redirect('/barang_masuk');
         }
 
-        return redirect()->back()
-        ->with('error', 'Data gagal ditambahkan');
+        Alert::error('Error', 'Data gagal ditambahkan');
+        return redirect()->back();
     }
 
     /**

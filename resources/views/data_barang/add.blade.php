@@ -2,9 +2,9 @@
 @section('content')
 
 <div class="page-title">
-  <div class="row">
+  <div class="row m-3">
       <div class="col-12 col-md-6 order-md-1 order-last">
-          <h3>Add Data Barang</h3>
+          <h3>Add Barang</h3>
       </div>
   </div>
 </div>
@@ -20,7 +20,7 @@
       @csrf
       <div class="form-group col-8">
         <label>Kode Barang</label>
-        <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror" id="kode_barang" placeholder="Kode Barang" value="{{ old('kode_barang') }}">
+        <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror" id="kode_barang" placeholder="Kode Barang" value="{{ $productId }}">
         @error('kode_barang')
           <div class="invalid-feedback">
             {{ $message }}

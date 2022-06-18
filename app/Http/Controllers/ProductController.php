@@ -27,7 +27,18 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('data_barang.add');
+        $maxCount = Product::all()->count();
+        $currentId = $maxCount+1;
+        if ($currentId < 10) {
+            $productId = 'P000'.$currentId;
+        } elseif ($currentId >= 10 && $currentId <= 99){
+            $productId = 'P00'.$currentId;
+        } elseif ($currentId >= 99 && $currentId <= 999) {
+            $productId = 'P0'.$currentId;
+        } else {
+            $productId = 'P'.$currentId;
+        }
+        return view('data_barang.add', compact('productId'));
     }
 
     /**
@@ -86,7 +97,8 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'kode_barang' => ['required', Rule::unique('products')->ignore($request->id)],
             'nama_barang' => ['required', Rule::unique('products')->ignore($request->id)],
-            'harga_satuan' => 'required|numeric',
+            'stok' => 'required|integer',
+            'harga_satuan' => 'required|integer',
         ]);
 
         Product::where('id', $id)->update($validatedData);

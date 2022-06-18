@@ -45,6 +45,15 @@
           </div>
         @enderror
       </div>
+      <div class="form-group col-8">
+        <label>Stok</label>
+        <input type="text" name="stok" class="form-control @error('stok') is-invalid @enderror" id="stok" placeholder="Harga Satuan" value="{{ $product->stok }}">
+        @error('stok')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+        @enderror
+      </div>
       <button type="submit" class="btn btn-success mt-3">Submit</button>
       </form>
   </div>
