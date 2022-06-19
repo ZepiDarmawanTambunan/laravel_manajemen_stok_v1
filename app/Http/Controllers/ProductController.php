@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductsIn;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -51,7 +52,7 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'kode_barang' => 'required|unique:products',
-            'nama_barang' => 'required|unique:products',
+            'nama_barang' => 'required',
             'harga_satuan' => 'required|integer',
         ]);
 

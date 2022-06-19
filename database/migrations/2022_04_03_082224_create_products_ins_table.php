@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('products_ins', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang')->unique();
+            $table->string('nama_barang');
+            // $table->foreign('kode_supplier')->references('kode_supplier')->on('supplier');
             $table->integer('jumlah_barang');
             $table->integer('harga_satuan');
             $table->date('tanggal_masuk');

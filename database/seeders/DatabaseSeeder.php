@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'username' => 'Ardian Ilyas',
-            'role' => 'owner',
+            'role' => 'Owner',
             'password' => bcrypt('guesswhat'),
             'remember_token' => Str::random(10),
         ]);
-        \App\Models\User::factory(10)->create();
-        ProductsIn::factory(20)->create();
+        // \App\Models\User::factory(10)->create();
+        // ProductsIn::factory(20)->create();
     }
 }

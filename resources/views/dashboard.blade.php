@@ -27,7 +27,7 @@
               <p class="card-title text-primary">TOTAL DAFTAR BARANG</p>           
           </div>
           <div class="card-footer bg-white">
-              <h5 class="text-start fw-bold">20</h5>
+              <h5 class="text-start fw-bold">{{ $data['total'] }}</h5>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
               <p class="card-title text-success">STOK BARANG TERSEDIA</p>           
           </div>
           <div class="card-footer bg-white">
-              <h5 class="text-start fw-bold">20</h5>
+              <h5 class="text-start fw-bold">{{ $data['avail'] }}</h5>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@
               <p class="card-title text-warning">STOK BARANG SEDIKIT</p>
           </div>
           <div class="card-footer bg-white">
-              <h5 class="text-start fw-bold">10</h5>
+              <h5 class="text-start fw-bold">{{ $data['warning'] }}</h5>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
               <p class="card-title text-danger">STOK BARANG HABIS</p>
           </div>
           <div class="card-footer bg-white">
-              <h5 class="text-start fw-bold">0</h5>
+              <h5 class="text-start fw-bold">{{ $data['outOfStock'] }}</h5>
           </div>
         </div>
       </div>

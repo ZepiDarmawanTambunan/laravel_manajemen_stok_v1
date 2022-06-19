@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductsIn;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductsInController extends Controller
@@ -53,7 +54,7 @@ class ProductsInController extends Controller
         if ($validatedData) {
             $product = Product::where('nama_barang', $request->nama_barang)->first();
             $product->stok = (int)$product->stok + (int)$request->jumlah_barang;
-            $product->save();
+            Product::where('nama_barang', $request->nama_barang)->update(['stok' => $product->stok]);
             ProductsIn::create($validatedData);
             Alert::success('Success', 'Data berhasil ditambahkan');
             return redirect('/barang_masuk');
@@ -82,7 +83,8 @@ class ProductsInController extends Controller
      */
     public function edit($id)
     {
-        return view('barang.edit_barang_masuk');
+        $product = ProductsIn::where('id', $id)->first();
+        return view('barang.edit_barang_masuk', compact('product'));
     }
 
     /**
@@ -94,7 +96,22 @@ class ProductsInController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_barang' => ['required', Rule::unique('products')->ignore($request->id)],
+            'jumlah_barang' => 'required|integer',
+            'harga_satuan' => 'required|integer',
+            'tanggal_masuk' => 'required|date',
+        ]);
+
+        $stokBM = ProductsIn::where('id', $id)->first();
+        $stokBarang = Product::where('nama_barang', $stokBM->nama_barang)->first();
+        $stokBarang->stok -= $stokBM->jumlah_barang ;
+        $updateStok = $stokBarang->stok + $request->jumlah_barang;
+        Product::where('nama_barang', $stokBarang->nama_barang)->update(['stok' => $updateStok]);
+
+        ProductsIn::where('id', $id)->update($validatedData);
+        Alert::success('Success', 'Data berhasil diupdate');
+        return redirect('/barang_masuk');
     }
 
     /**
@@ -105,6 +122,10 @@ class ProductsInController extends Controller
      */
     public function destroy($id)
     {
+        $stokDiHapus = ProductsIn::where('id', $id)->first();
+        $stokBarang = Product::where('nama_barang', $stokDiHapus->nama_barang)->first();
+        $stokBarang->stok -= $stokDiHapus->jumlah_barang;
+        Product::where('nama_barang', $stokBarang->nama_barang)->update(['stok' => $stokBarang->stok]);
         ProductsIn::find($id)->delete();
         return redirect()->back();
     }

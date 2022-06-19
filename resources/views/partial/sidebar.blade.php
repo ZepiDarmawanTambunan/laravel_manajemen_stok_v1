@@ -2,9 +2,9 @@
     <div id="sidebar" class="active">
         <div class="sidebar-wrapper active">
             <div class="sidebar-header">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-center">
                     <div class="logo mx-2 fs-3 text-center d-flex flex-column">
-                        <img src="../../template2/images/TJ.png" style="width: 70px; height: 70px">
+                        <img src="/img/store.png" alt="" style="width: 70px; height: 70px">
                         <a href="/">TOKO JAGO</a>
                     </div>
                     <div class="toggler">
@@ -14,7 +14,7 @@
             </div>
             <div class="sidebar-menu">
                 <ul class="menu">
-                    <li class="sidebar-title">Menu</li>
+                    <li class="sidebar-title">Menu Utama</li>
                     <li class="sidebar-item">
                         <a href="/" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
@@ -29,14 +29,27 @@
                     </li>
                     <li class="sidebar-item">
                         <a href="/barang_masuk" class='sidebar-link'>
-                            <i class="bi bi-grid-1x2"></i>
+                            <i class="fa-solid fa-cart-flatbed"></i>
                             <span>Barang Masuk</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="" class='sidebar-link'>
-                            <i class="bi bi-grid-1x2"></i>
+                            <i class="fa-solid fa-cart-flatbed"></i>
                             <span>Barang Keluar</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/supplier" class='sidebar-link'>
+                            <i class="fa-solid fa-truck"></i>
+                            <span>Supplier</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-title">Pegawai</li>
+                    <li class="sidebar-item">
+                        <a href="/pegawai" class='sidebar-link'>
+                            <i class="fa-solid fa-user"></i>
+                            <span>Data Pegawai</span>
                         </a>
                     </li>
                 </ul>
