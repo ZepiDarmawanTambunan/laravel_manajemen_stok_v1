@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductsInController;
+use Carbon\Carbon;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductsInController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,8 @@ Route::get('/', function () {
         'total' => $total,
         'avail' => $avail,
         'warning' => $warning,
-        'outOfStock' => $outOfStock
+        'outOfStock' => $outOfStock,
+        'today' => $today = Carbon::now()->isoFormat('dddd, D MMMM Y'),
     ];
     return view('dashboard', compact('data'));
 })->middleware('auth');

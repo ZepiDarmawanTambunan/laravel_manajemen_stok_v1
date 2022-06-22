@@ -36,7 +36,7 @@
                       <tbody>
                           @if ($products->count())
                             @foreach ($products as $product)
-                            <tr id="product{{ $product->id_barang }}">
+                            <tr id="product{{ $product->id }}">
                                 <td>{{ $product->kode_barang }}</td>  
                                 <td>{{ $product->nama_barang }}</td>  
                                 <td>Rp. {{ number_format($product->harga_satuan, 0, '.', '.') }}</td>  

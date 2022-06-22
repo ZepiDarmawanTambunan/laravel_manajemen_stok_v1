@@ -52,7 +52,7 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'kode_barang' => 'required|unique:products',
-            'nama_barang' => 'required',
+            'nama_barang' => 'required|unique:products',
             'harga_satuan' => 'required|integer',
         ]);
 
@@ -115,7 +115,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::where('id_barang', $id)->delete();
+        Product::where('id', $id)->delete();
         return redirect()->back();
     }
 }

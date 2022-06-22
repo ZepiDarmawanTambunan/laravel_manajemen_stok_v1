@@ -3,7 +3,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 d-flex justify-content-end">
-      <p class="text-subtitle text-muted mx-3">Date : {{ date('l, d F Y') }}</p>
+      <p class="text-subtitle text-muted mx-3">Date : {{ $data['today'] }}</p>
       <p class="text-subtitle text-muted">|</p>
       <p class="text-subtitle text-muted mx-3">Time : <span id="rtc"></span></p>
     </div>
