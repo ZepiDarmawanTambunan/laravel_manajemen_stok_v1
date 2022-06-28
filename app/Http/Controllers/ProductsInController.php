@@ -19,7 +19,7 @@ class ProductsInController extends Controller
     {
         $products = ProductsIn::orderBy('nama_barang', 'asc')
                     ->get();
-        return view('barang.barang_masuk', compact('products'));
+        return view('barang_masuk.barang_masuk', compact('products'));
     }
 
     /**
@@ -30,7 +30,7 @@ class ProductsInController extends Controller
     public function create()
     {
         $products = Product::orderBy('nama_barang', 'asc')->get();
-        return view('barang.add_barang_masuk', compact('products'));
+        return view('barang_masuk.add_barang_masuk', compact('products'));
     }
 
     /**
@@ -41,21 +41,19 @@ class ProductsInController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = [];
         $validatedData = $request->validate([
             'nama_barang' => 'required',
             'jumlah_barang' => 'required|numeric',
             'harga_satuan' => 'required|numeric',
+            'total_harga' => 'required',
             'tanggal_masuk' => 'required'
         ]);
 
-        $validatedData['total_harga'] = $request->jumlah_barang * $request->harga_satuan;
-        
         if ($validatedData) {
             $product = Product::where('nama_barang', $request->nama_barang)->first();
             $product->stok = (int)$product->stok + (int)$request->jumlah_barang;
             Product::where('nama_barang', $request->nama_barang)->update(['stok' => $product->stok]);
-            ProductsIn::create($validatedData);
+            ProductsIn::create($request->all());
             Alert::success('Success', 'Data berhasil ditambahkan');
             return redirect('/barang_masuk');
         }
@@ -84,7 +82,7 @@ class ProductsInController extends Controller
     public function edit($id)
     {
         $product = ProductsIn::where('id', $id)->first();
-        return view('barang.edit_barang_masuk', compact('product'));
+        return view('barang_masuk.edit_barang_masuk', compact('product'));
     }
 
     /**
@@ -97,7 +95,6 @@ class ProductsInController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nama_barang' => ['required', Rule::unique('products')->ignore($request->id)],
             'jumlah_barang' => 'required|integer',
             'harga_satuan' => 'required|integer',
             'tanggal_masuk' => 'required|date',

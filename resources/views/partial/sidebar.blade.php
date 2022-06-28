@@ -5,7 +5,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="logo mx-2 fs-3 text-center d-flex flex-column">
                         <img src="/img/store.png" alt="" style="width: 70px; height: 70px">
-                        <a href="/">TOKO JAGO</a>
+                        <a href="/">TOKO A</a>
                     </div>
                     <div class="toggler">
                         <a href="" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="" class='sidebar-link'>
+                        <a href="/barang_keluar" class='sidebar-link'>
                             <i class="fa-solid fa-cart-flatbed"></i>
                             <span>Barang Keluar</span>
                         </a>
@@ -105,4 +105,3 @@
                 </div>
             </nav>
         </header>
-

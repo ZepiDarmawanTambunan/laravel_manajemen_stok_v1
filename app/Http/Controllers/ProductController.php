@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductsIn;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -28,18 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $maxCount = Product::all()->count();
-        $currentId = $maxCount+1;
-        if ($currentId < 10) {
-            $productId = 'P000'.$currentId;
-        } elseif ($currentId >= 10 && $currentId <= 99){
-            $productId = 'P00'.$currentId;
-        } elseif ($currentId >= 99 && $currentId <= 999) {
-            $productId = 'P0'.$currentId;
-        } else {
-            $productId = 'P'.$currentId;
-        }
-        return view('data_barang.add', compact('productId'));
+        $id = IdGenerator::generate(['table' => 'products', 'field' => 'kode_barang', 'length' => '5', 'prefix' => 'P']);
+        return view('data_barang.add', compact('id'));
     }
 
     /**

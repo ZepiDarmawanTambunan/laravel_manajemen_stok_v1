@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductOutController;
 use App\Http\Controllers\ProductsInController;
+use App\Models\ProductOut;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,14 @@ Route::post('/barang_masuk/store', [ProductsInController::class, 'store'])
 ->middleware('auth');
 Route::post('/barang_masuk/update/{id}', [ProductsInController::class, 'update'])
 ->middleware('auth');
+
+// Route Data Barang Keluar
+Route::get('/barang_keluar', [ProductOutController::class, 'index'])->middleware('auth');
+Route::get('/barang_keluar/add', [ProductOutController::class, 'create'])->middleware('auth');
+Route::get('/barang_keluar/edit/{id}', [ProductOutController::class, 'edit'])->middleware('auth');
+Route::get('/barang_keluar/delete/{id}', [ProductOutController::class, 'destroy'])->middleware('auth');
+Route::post('/barang_keluar/store', [ProductOutController::class, 'store'])->middleware('auth');
+Route::post('/barang_keluar/update/{id}', [ProductOutController::class, 'update'])->middleware('auth');
 
 // Route Daftar Barang
 Route::get('/daftar_barang', [ProductController::class, 'index'])->middleware('auth');

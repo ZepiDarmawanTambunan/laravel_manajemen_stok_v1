@@ -20,7 +20,7 @@
       @csrf
       <div class="form-group col-8">
         <label>Kode Barang</label>
-        <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror" id="kode_barang" placeholder="Kode Barang" value="{{ $productId }}" readonly>
+        <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror" id="kode_barang" placeholder="Kode Barang" value="{{ $id }}" readonly>
         @error('kode_barang')
           <div class="invalid-feedback">
             {{ $message }}
