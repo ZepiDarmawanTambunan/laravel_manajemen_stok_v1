@@ -21,7 +21,7 @@
                   <table class="table table-lg">
                       <thead>
                           <tr>
-                              <th>ID Pegawai</th>
+                              <th>Kode Pegawai</th>
                               <th>Nama Pegawai</th>
                               <th>Jabatan</th>
                               <th>Aksi</th>
@@ -31,7 +31,7 @@
                           @if ($employees->count())
                             @foreach ($employees as $employee)
                             <tr id="employees{{ $employee->id }}">
-                                <td>{{ $employee->id }}</td>  
+                                <td>{{ $employee->kode_pegawai }}</td>  
                                 <td>{{ $employee->username }}</td>  
                                 <td>{{ $employee->role }}</td>  
                                 <td>

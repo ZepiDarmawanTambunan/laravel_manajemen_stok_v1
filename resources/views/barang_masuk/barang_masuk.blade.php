@@ -28,6 +28,8 @@
                       <thead>
                           <tr>
                               <th>No</th>
+                              {{-- <th>Kode Supplier</th> --}}
+                              <th>Kode Pegawai</th>
                               <th>Nama Barang</th>
                               <th>Jumlah Barang</th>
                               <th>Harga Satuan</th>
@@ -41,6 +43,8 @@
                             @foreach ($products as $product)
                             <tr id="product{{ $product->id }}">
                                 <td>{{ $loop->iteration }}</td>
+                                {{-- <td>SUP-001</td> --}}
+                                <td>{{ $product->kode_pegawai }}</td>
                                 <td>{{ $product->nama_barang }}</td>  
                                 <td>{{ $product->jumlah_barang }}</td>  
                                 <td>Rp. {{ number_format($product->harga_satuan, 0, '.', '.') }}</td>  

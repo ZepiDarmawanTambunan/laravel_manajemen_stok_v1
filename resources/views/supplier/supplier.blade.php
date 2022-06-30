@@ -3,8 +3,8 @@
 <div class="page-title">
   <div class="row m-3">
       <div class="col-12 col-md-6 order-md-1 order-last">
-          <h3>Barang Keluar</h3>
-          <p class="text-subtitle text-muted">Daftar Barang Keluar Bulan {{ date('F') }}</p>
+          <h3>Data Supplier</h3>
+          <p class="text-subtitle text-muted">Daftar Data Supplier</p>
       </div>
   </div>
 </div>  
@@ -17,8 +17,7 @@
 <div class="col-12">
   <div class="card">
       <div class="card-header">
-          <h4 class="card-title">Data Barang Keluar</h4>
-          <a href="/barang_keluar/add" class="btn btn-primary mt-3">Add Data</a>
+          <a href="/daftar_barang/add" class="btn btn-primary mt-3">Add Data</a>
       </div>
       <div class="card-content">
           <div class="card-body">
@@ -27,38 +26,30 @@
                   <table class="table table-lg">
                       <thead>
                           <tr>
-                              <th>No</th>
-                              <th>Kode Pegawai</th>
-                              <th>Nama Barang</th>
-                              <th>Jumlah Barang</th>
-                              <th>Harga Satuan</th>
-                              <th>Total Harga</th>
-                              <th>Tanggal Keluar</th>
+                              <th>Kode Supplier</th>
+                              <th>Nama Supplier</th>
+                              <th>Alamat</th>
+                              <th>No Telpon</th>
                               <th>Aksi</th>
                           </tr>
                       </thead>
                       <tbody>
-                          @if ($products->count())
-                            @foreach ($products as $product)
-                            <tr id="product{{ $product->id }}">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $product->kode_pegawai }}</td>
-                                <td>{{ $product->nama_barang }}</td>  
-                                <td>{{ $product->jumlah_barang }}</td>  
-                                <td>Rp. {{ number_format($product->harga_satuan, 0, '.', '.') }}</td>  
-                                <td>Rp. {{ number_format($product->jumlah_barang*$product->harga_satuan, 0, '.', '.') }}</td>  
-                                <td>{{ $product->tanggal_keluar }}</td>  
+                          @if ($suppliers->count())
+                            @foreach ($suppliers as $supplier)
+                            <tr id="supplier{{ $supplier->id }}" class="data-barang">
+                                <td>{{ $supplier->kode_supplier }}</td>  
+                                <td>{{ $supplier->nama_supplier }}</td>  
+                                <td>{{ $supplier->alamat }}</td>
+                                <td>{{ $supplier->no_telpon }}</td>
                                 <td>
-                                <a href="/barang_keluar/edit/{{ $product->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}"><i class="fa-regular fa-trash-can"></i></a>
+                                <a href="/supplier/edit/{{ $supplier->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $supplier->id }}" data-name="{{ $supplier->nama_barang }}"><i class="fa-regular fa-trash-can"></i></a>
                                 </td>  
                             </tr>       
-                            @endforeach          
+                            @endforeach
                           @else
-                              <h4 class="text-center">
-                                  Data masih kosong
-                              </h4>
-                          @endif
+                              <h4 class="text-center">Data masih kosong</h4>
+                          @endif          
                       </tbody>
                   </table>
               </div>
@@ -83,10 +74,10 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "GET",
-                    url: '/barang_keluar/delete/'+Id,
+                    url: '/daftar_barang/delete/'+Id,
                     success: function (data) {
-                        Swal.fire('Deleted !', 'Data berhasil dihapus', 'success')
                         $("#product"+Id).remove()              
+                        Swal.fire('Deleted !', 'Data berhasil dihapus', 'success')
                     },
                     error: function (data) {
                         console.log('Error', data);

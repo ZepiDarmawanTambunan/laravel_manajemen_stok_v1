@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::create([
+            'kode_pegawai' => 'P-001',
             'username' => 'Admin',
             'role' => 'Admin',
             'password' => bcrypt('admin'),

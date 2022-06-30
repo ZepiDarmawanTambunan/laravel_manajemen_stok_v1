@@ -39,10 +39,11 @@
                             <span>Barang Keluar</span>
                         </a>
                     </li>
+                     <li class="sidebar-title">Supplier</li>
                     <li class="sidebar-item">
                         <a href="/supplier" class='sidebar-link'>
                             <i class="fa-solid fa-truck"></i>
-                            <span>Supplier</span>
+                            <span>Data Supplier</span>
                         </a>
                     </li>
                     <li class="sidebar-title">Pegawai</li>

@@ -51,6 +51,7 @@ class ProductOutController extends Controller
 
         $getBarang = Product::where('nama_barang', $request->nama_barang)->first();
         
+        $validatedData['kode_pegawai'] = auth()->user()->kode_pegawai;
         $validatedData['harga_satuan'] = $getBarang->harga_satuan;
         $validatedData['total_harga'] = $request->jumlah_barang * $getBarang->harga_satuan;
         
@@ -112,20 +113,26 @@ class ProductOutController extends Controller
         ]);
 
         $getBarang = Product::where('nama_barang', $request->nama_barang)->first();
-        
+        $stokBKLama = ProductOut::where('id', $id)->first();
+        // dd($stokBKLama->jumlah_barang);
         if ($validatedData) {
-            if ($getBarang->stok > $request->jumlah_barang) {
-                $stokBK = ProductOut::where('id', $id)->first();
-                $stokBarang = Product::where('nama_barang', $stokBK->nama_barang)->first();
-                $stokBarang->stok += $stokBK->jumlah_barang ;
-                $updateStok = $stokBarang->stok - $request->jumlah_barang;
-                Product::where('nama_barang', $stokBarang->nama_barang)->update(['stok' => $updateStok]);
-                ProductOut::where('id', $id)->update($validatedData);
-                Alert::success('Success', 'Data berhasil diupdate');
-                return redirect('/barang_keluar');
-            } else {
-                Alert::error('Gagal !', 'Jumlah barang keluar melebihi stok barang saat ini !');
-                return redirect()->back()->withInput($request->all());
+            
+            if ($request->jumlah_barang) {
+                $getBarang->update(['stok' => $stokBKLama->jumlah_barang]);
+
+                if ($getBarang->stok > $request->jumlah_barang) {
+                    $stokBK = ProductOut::where('id', $id)->first();
+                    $stokBarang = Product::where('nama_barang', $stokBK->nama_barang)->first();
+                    $stokBarang->stok += $stokBK->jumlah_barang ;
+                    $updateStok = $stokBarang->stok - $request->jumlah_barang;
+                    Product::where('nama_barang', $stokBarang->nama_barang)->update(['stok' => $updateStok]);
+                    ProductOut::where('id', $id)->update($validatedData);
+                    Alert::success('Success', 'Data berhasil diupdate');
+                    return redirect('/barang_keluar');
+                } else {
+                    Alert::error('Gagal !', 'Jumlah barang keluar melebihi stok barang saat ini !');
+                    return redirect()->back()->withInput($request->all());
+                }
             }
         } else {
             Alert::error('Error', 'Data gagal ditambahkan');

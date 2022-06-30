@@ -3,8 +3,8 @@
 <div class="page-title">
   <div class="row m-3">
       <div class="col-12 col-md-6 order-md-1 order-last">
-          <h3>Data Barang</h3>
-          <p class="text-subtitle text-muted">Daftar Data Barang</p>
+          <h3>Data Stok Barang</h3>
+          <p class="text-subtitle text-muted">Daftar Data Stok Barang</p>
       </div>
   </div>
 </div>  

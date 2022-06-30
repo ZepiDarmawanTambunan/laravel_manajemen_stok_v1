@@ -11,6 +11,7 @@ class ProductOut extends Model
     protected $table = 'product_outs';
     protected $fillable = [
         'nama_barang',
+        'kode_pegawai',
         'jumlah_barang',
         'harga_satuan',
         'total_harga',

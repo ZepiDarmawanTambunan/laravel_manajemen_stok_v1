@@ -29,6 +29,7 @@ class ProductsInController extends Controller
      */
     public function create()
     {
+        // dd(auth()->user()->username);
         $products = Product::orderBy('nama_barang', 'asc')->get();
         return view('barang_masuk.add_barang_masuk', compact('products'));
     }
@@ -48,12 +49,14 @@ class ProductsInController extends Controller
             'total_harga' => 'required',
             'tanggal_masuk' => 'required'
         ]);
+        $validatedData['kode_pegawai'] = auth()->user()->kode_pegawai;
+        // dd($validatedData);
 
         if ($validatedData) {
             $product = Product::where('nama_barang', $request->nama_barang)->first();
             $product->stok = (int)$product->stok + (int)$request->jumlah_barang;
             Product::where('nama_barang', $request->nama_barang)->update(['stok' => $product->stok]);
-            ProductsIn::create($request->all());
+            ProductsIn::create($validatedData);
             Alert::success('Success', 'Data berhasil ditambahkan');
             return redirect('/barang_masuk');
         }

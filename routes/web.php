@@ -8,7 +8,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductOutController;
 use App\Http\Controllers\ProductsInController;
+use App\Http\Controllers\SupplierController;
 use App\Models\ProductOut;
+use App\Models\Supplier;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +77,9 @@ Route::post('/daftar_barang/update/{id}', [ProductController::class, 'update'])-
 
 // Route Data Pegawai
 Route::resource('pegawai', EmployeeController::class);
+
+// Route Supplier 
+Route::get('/supplier', [SupplierController::class, 'index'])->middleware('auth');
 
 
 
