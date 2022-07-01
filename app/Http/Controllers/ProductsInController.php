@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductsIn;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -30,8 +31,9 @@ class ProductsInController extends Controller
     public function create()
     {
         // dd(auth()->user()->username);
+        $suppliers = Supplier::all();
         $products = Product::orderBy('nama_barang', 'asc')->get();
-        return view('barang_masuk.add_barang_masuk', compact('products'));
+        return view('barang_masuk.add_barang_masuk', compact('products', 'suppliers'));
     }
 
     /**
@@ -44,6 +46,7 @@ class ProductsInController extends Controller
     {
         $validatedData = $request->validate([
             'nama_barang' => 'required',
+            'kode_supplier' => 'required',
             'jumlah_barang' => 'required|numeric',
             'harga_satuan' => 'required|numeric',
             'total_harga' => 'required',
@@ -84,6 +87,7 @@ class ProductsInController extends Controller
      */
     public function edit($id)
     {
+        // $suppliers = Supplier::all();
         $product = ProductsIn::where('id', $id)->first();
         return view('barang_masuk.edit_barang_masuk', compact('product'));
     }

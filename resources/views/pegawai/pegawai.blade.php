@@ -23,19 +23,19 @@
                           <tr>
                               <th>Kode Pegawai</th>
                               <th>Nama Pegawai</th>
-                              <th>Jabatan</th>
+                              <th>Role</th>
                               <th>Aksi</th>
                           </tr>
                       </thead>
                       <tbody>
                           @if ($employees->count())
                             @foreach ($employees as $employee)
-                            <tr id="employees{{ $employee->id }}">
+                            <tr id="employee{{ $employee->id }}">
                                 <td>{{ $employee->kode_pegawai }}</td>  
                                 <td>{{ $employee->username }}</td>  
                                 <td>{{ $employee->role }}</td>  
                                 <td>
-                                <a href="/daftar_barang/edit/{{ $employee->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="/pegawai/edit/{{ $employee->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $employee->id }}" data-name="{{ $employee->username }}"><i class="fa-regular fa-trash-can"></i></a>
                                 </td>  
                             </tr>       
@@ -67,9 +67,9 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "GET",
-                    url: '/daftar_barang/delete/'+Id,
+                    url: '/pegawai/delete/'+Id,
                     success: function (data) {
-                        $("#product"+Id).remove()              
+                        $("#employee"+Id).remove()              
                         Swal.fire('Deleted !', 'Data berhasil dihapus', 'success')
                     },
                     error: function (data) {

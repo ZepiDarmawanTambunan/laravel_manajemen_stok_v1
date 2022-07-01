@@ -4,7 +4,7 @@
 <div class="page-title">
   <div class="row m-3">
       <div class="col-12 col-md-6 order-md-1 order-last">
-          <h3>Edit Data Barang</h3>
+          <h3>Add Supplier</h3>
       </div>
   </div>
 </div>
@@ -16,39 +16,39 @@
 @endif  
 <div class="card">
   <div class="card-body">
-    <form action="/daftar_barang/update/{{ $product->id }}" method="POST">
+    <form action="/supplier/store" method="POST">
       @csrf
       <div class="form-group col-8">
-        <label>Kode Barang</label>
-        <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror" id="kode_barang" placeholder="Kode Barang" value={{ $product->kode_barang }} readonly>
-        @error('kode_barang')
+        <label>Kode Supplier</label>
+        <input type="text" name="kode_supplier" class="form-control @error('kode_supplier') is-invalid @enderror" id="kode_supplier" placeholder="Kode Supllier" value="{{ $id }}" readonly>
+        @error('kode_supplier')
           <div class="invalid-feedback">
             {{ $message }}
           </div>
         @enderror
       </div>
       <div class="form-group col-8">
-        <label>Nama Barang</label>
-        <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror" id="nama_barang" placeholder="Nama Barang" value="{{ $product->nama_barang }}">
-        @error('nama_barang')
+        <label>Nama Supplier</label>
+        <input type="text" name="nama_supplier" class="form-control @error('nama_supplier') is-invalid @enderror" id="nama_supplier" placeholder="Nama Supplier" value="{{ old('nama_supplier') }}">
+        @error('nama_supplier')
           <div class="invalid-feedback">
             {{ $message }}
           </div>
         @enderror
       </div>
       <div class="form-group col-8">
-        <label>Harga Satuan</label>
-        <input type="text" name="harga_satuan" class="form-control @error('harga_satuan') is-invalid @enderror" id="harga_satuan" placeholder="Harga Satuan" value="{{ $product->harga_satuan }}">
-        @error('harga_satuan')
+        <label>Alamat</label>
+        <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Alamat" value="{{ old('alamat') }}">
+        @error('alamat')
           <div class="invalid-feedback">
             {{ $message }}
           </div>
         @enderror
       </div>
       <div class="form-group col-8">
-        <label>Stok</label>
-        <input type="text" name="stok" class="form-control @error('stok') is-invalid @enderror" id="stok" placeholder="Stok" value="{{ $product->stok }}" readonly>
-        @error('stok')
+        <label>No Telpon</label>
+        <input type="text" name="no_telpon" class="form-control @error('no_telpon') is-invalid @enderror" id="no_telpon" placeholder="No Telpon" value="{{ old('no_telpon') }}">
+        @error('no_telpon')
           <div class="invalid-feedback">
             {{ $message }}
           </div>

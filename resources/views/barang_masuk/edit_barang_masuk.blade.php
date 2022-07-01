@@ -28,6 +28,10 @@
         @enderror
       </div>
       <div class="form-group col-8">
+        <label>Kode Supplier</label>
+        <input class="form-control" type="text" name="kode_supplier" id="kode_supplier" value="{{ $product->kode_supplier }}" readonly>
+      </div>
+      <div class="form-group col-8">
         <label>Jumlah Barang</label>
         <input type="text" name="jumlah_barang" class="form-control @error('jumlah_barang') is-invalid @enderror" id="jumlah_barang" placeholder="Jumlah Barang" value="{{ $product->jumlah_barang }}">
         @error('jumlah_barang')

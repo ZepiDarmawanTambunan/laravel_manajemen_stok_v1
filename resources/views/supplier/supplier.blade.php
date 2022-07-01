@@ -17,7 +17,7 @@
 <div class="col-12">
   <div class="card">
       <div class="card-header">
-          <a href="/daftar_barang/add" class="btn btn-primary mt-3">Add Data</a>
+          <a href="/supplier/add" class="btn btn-primary mt-3">Add Data</a>
       </div>
       <div class="card-content">
           <div class="card-body">
@@ -43,7 +43,7 @@
                                 <td>{{ $supplier->no_telpon }}</td>
                                 <td>
                                 <a href="/supplier/edit/{{ $supplier->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $supplier->id }}" data-name="{{ $supplier->nama_barang }}"><i class="fa-regular fa-trash-can"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $supplier->id }}" data-name="{{ $supplier->nama_supplier }}"><i class="fa-regular fa-trash-can"></i></a>
                                 </td>  
                             </tr>       
                             @endforeach
@@ -74,9 +74,9 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "GET",
-                    url: '/daftar_barang/delete/'+Id,
+                    url: '/supplier/delete/'+Id,
                     success: function (data) {
-                        $("#product"+Id).remove()              
+                        $("#supplier"+Id).remove()              
                         Swal.fire('Deleted !', 'Data berhasil dihapus', 'success')
                     },
                     error: function (data) {

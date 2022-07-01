@@ -46,14 +46,20 @@ class ProductOutController extends Controller
         $validatedData = $request->validate([
             'nama_barang' => 'required',
             'jumlah_barang' => 'required|numeric',
+            'keterangan' => 'required',
             'tanggal_keluar' => 'required'
         ]);
-
         $getBarang = Product::where('nama_barang', $request->nama_barang)->first();
         
         $validatedData['kode_pegawai'] = auth()->user()->kode_pegawai;
-        $validatedData['harga_satuan'] = $getBarang->harga_satuan;
-        $validatedData['total_harga'] = $request->jumlah_barang * $getBarang->harga_satuan;
+        if($request->keterangan == 'terjual'){
+            $validatedData['harga_satuan'] = $getBarang->harga_satuan;
+            $validatedData['total_harga'] = $request->jumlah_barang * $getBarang->harga_satuan;
+        } else {
+            $validatedData['harga_satuan'] = $getBarang->harga_satuan;
+            $validatedData['total_harga'] = $request->jumlah_barang * $getBarang->harga_satuan;
+            $validatedData['total_harga'] = -abs($validatedData['total_harga']);
+        }
         
         if ($validatedData) {
             if ($getBarang->stok > $request->jumlah_barang){
@@ -115,6 +121,7 @@ class ProductOutController extends Controller
         $getBarang = Product::where('nama_barang', $request->nama_barang)->first();
         $stokBKLama = ProductOut::where('id', $id)->first();
         // dd($stokBKLama->jumlah_barang);
+
         if ($validatedData) {
             
             if ($request->jumlah_barang) {

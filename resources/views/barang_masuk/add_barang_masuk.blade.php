@@ -27,6 +27,14 @@
         </select>
       </div>
       <div class="form-group col-8">
+        <label>Nama Supplier</label>
+        <select class="form-select" name="kode_supplier" id="kode_supplier">
+          @foreach ($suppliers as $supplier)
+              <option value="{!! $supplier->kode_supplier !!}">{!! $supplier->nama_supplier !!}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="form-group col-8">
         <label>Jumlah Barang</label>
         <input type="text" name="jumlah_barang" class="form-control @error('jumlah_barang') is-invalid @enderror" id="jumlah_barang" placeholder="Jumlah Barang" value="{{ old('jumlah_barang') }}">
         @error('jumlah_barang')

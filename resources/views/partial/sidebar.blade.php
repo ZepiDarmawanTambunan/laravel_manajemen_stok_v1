@@ -5,7 +5,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="logo mx-2 fs-3 text-center d-flex flex-column">
                         <img src="/img/store.png" alt="" style="width: 70px; height: 70px">
-                        <a href="/">TOKO A</a>
+                        <a href="/">TOKO JAGO</a>
                     </div>
                     <div class="toggler">
                         <a href="" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -14,13 +14,14 @@
             </div>
             <div class="sidebar-menu">
                 <ul class="menu">
-                    <li class="sidebar-title">Menu Utama</li>
+                    <li class="sidebar-title">Home</li>
                     <li class="sidebar-item">
                         <a href="/" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    <li class="sidebar-title">Data Barang</li>
                     <li class="sidebar-item">
                         <a href="/daftar_barang" class='sidebar-link'>
                             <i class="bi bi-stack"></i>
@@ -39,20 +40,33 @@
                             <span>Barang Keluar</span>
                         </a>
                     </li>
-                     <li class="sidebar-title">Supplier</li>
+                    <li class="sidebar-title">Supplier</li>
                     <li class="sidebar-item">
                         <a href="/supplier" class='sidebar-link'>
                             <i class="fa-solid fa-truck"></i>
                             <span>Data Supplier</span>
                         </a>
                     </li>
-                    <li class="sidebar-title">Pegawai</li>
-                    <li class="sidebar-item">
-                        <a href="/pegawai" class='sidebar-link'>
-                            <i class="fa-solid fa-user"></i>
-                            <span>Data Pegawai</span>
-                        </a>
-                    </li>
+                    @can('isAdmin')
+                        <li class="sidebar-title">Pegawai</li>
+                        <li class="sidebar-item">
+                            <a href="/pegawai" class='sidebar-link'>
+                                <i class="fa-solid fa-user"></i>
+                                <span>Data Pegawai</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-title">Cetak Laporan</li>
+                        <li class="sidebar-item">
+                            <a href="/cetakBM" class='sidebar-link'>
+                                <i class="fa-solid fa-print"></i>
+                                <span>Laporan Barang Masuk</span>
+                            </a>
+                            <a href="/cetakBK" class='sidebar-link'>
+                                <i class="fa-solid fa-print"></i>
+                                <span>Laporan Barang Keluar</span>
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </div>
             <button class="sidebar-toggler btn x">

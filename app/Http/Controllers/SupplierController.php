@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SupplierController extends Controller
 {
@@ -25,7 +28,8 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        $id = IdGenerator::generate(['table' => 'suppliers', 'field' => 'kode_supplier', 'length' => '7', 'prefix' => 'SUP-']);
+        return view('supplier.add', compact('id'));
     }
 
     /**
@@ -36,7 +40,21 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'kode_supplier' => 'required|unique:suppliers',
+            'nama_supplier' => 'required',
+            'alamat' => 'required',
+            'no_telpon' => 'required|min:8|max:12|regex:/^([0-9\s\-\+\(\)]*)$/',
+        ]);
+
+        if ($validatedData) {
+            Supplier::create($validatedData);
+            Alert::success('Success', 'Data berhasil ditambahkan');
+            return redirect('/supplier');
+        } else {
+            Alert::error('Gagal', 'Data gagal ditambahkan');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -56,9 +74,10 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit(Supplier $supplier)
+    public function edit($id)
     {
-        //
+        $supplier = Supplier::where('id', $id)->first();
+        return view('supplier.edit', compact('supplier'));
     }
 
     /**
@@ -68,9 +87,23 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'kode_supplier' => ['required', Rule::unique('suppliers')->ignore($request->id)],
+            'nama_supplier' => ['required', Rule::unique('suppliers')->ignore($request->id)],
+            'alamat' => 'required',
+            'no_telpon' => 'required|min:8|max:12|regex:/^([0-9\s\-\+\(\)]*)$/',
+        ]);
+
+        if ($validatedData) {
+            Supplier::where('id', $id)->update($validatedData);
+            Alert::success('Success', 'Data berhasil diupdate');
+            return redirect('/supplier');
+        } else {
+            Alert::error('Error', 'Data gagal ditambahkan');
+            return redirect()->back()->withInput($request->all());
+        }
     }
 
     /**
@@ -79,8 +112,9 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy($id)
     {
-        //
+        Supplier::where('id', $id)->delete();
+        return redirect()->back();
     }
 }

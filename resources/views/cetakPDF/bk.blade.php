@@ -3,22 +3,16 @@
 <div class="page-title">
   <div class="row m-3">
       <div class="col-12 col-md-6 order-md-1 order-last">
-          <h3>Barang Keluar</h3>
+          <h3>Cetak Barang Keluar</h3>
           <p class="text-subtitle text-muted">Daftar Barang Keluar Bulan {{ date('F') }}</p>
       </div>
   </div>
 </div>  
-@if (session()->has('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>  
-@endif
 <div class="col-12">
   <div class="card">
       <div class="card-header">
           <h4 class="card-title">Data Barang Keluar</h4>
-          <a href="/barang_keluar/add" class="btn btn-primary mt-3">Add Data</a>
+          <a href="/cetak/bk" class="btn btn-primary mt-3">Cetak PDF</a>
       </div>
       <div class="card-content">
           <div class="card-body">
@@ -35,7 +29,6 @@
                               <th>Harga Satuan</th>
                               <th>Total Harga</th>
                               <th>Tanggal Keluar</th>
-                              <th>Aksi</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -51,11 +44,7 @@
                                 </td>
                                 <td>Rp. {{ number_format($product->harga_satuan, 0, '.', '.') }}</td>  
                                 <td>Rp. {{ number_format($product->total_harga, 0, '.', '.') }}</td>  
-                                <td>{{ $product->tanggal_keluar }}</td>  
-                                <td>
-                                <a href="/barang_keluar/edit/{{ $product->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $product->id }}" data-name="{{ $product->nama_barang }}"><i class="fa-regular fa-trash-can"></i></a>
-                                </td>  
+                                <td>{{ $product->tanggal_keluar }}</td>   
                             </tr>       
                             @endforeach          
                           @else
@@ -70,36 +59,4 @@
       </div>
   </div>
 </div>
-
-<script>
-    $('.btn-delete').on('click', function(){
-        var Id = $(this).data('id')
-        var name = $(this).data('name')
-        Swal.fire({
-            title: "Are you sure want to delete "+name+" ?",
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "GET",
-                    url: '/barang_keluar/delete/'+Id,
-                    success: function (data) {
-                        Swal.fire('Deleted !', 'Data berhasil dihapus', 'success')
-                        $("#product"+Id).remove()              
-                    },
-                    error: function (data) {
-                        console.log('Error', data);
-                    }
-                });
-            } else {
-                Swal.fire('Data tidak jadi dihapus')
-            }
-        })
-    })
-</script>
 @endsection

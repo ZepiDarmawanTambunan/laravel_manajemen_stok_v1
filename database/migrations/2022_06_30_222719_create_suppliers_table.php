@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kode_supplier')->unique();
             $table->string('nama_supplier')->unique();
             $table->text('alamat');
-            $table->integer('no_telpon')->unique();
+            $table->string('no_telpon');
             $table->timestamps();
         });
     }

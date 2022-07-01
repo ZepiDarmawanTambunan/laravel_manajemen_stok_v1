@@ -13,6 +13,7 @@ class ProductOut extends Model
         'nama_barang',
         'kode_pegawai',
         'jumlah_barang',
+        'keterangan',
         'harga_satuan',
         'total_harga',
         'tanggal_keluar'

@@ -18,8 +18,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::create([
-            'kode_pegawai' => 'P-001',
+            'kode_pegawai' => 'PG-001',
             'username' => 'Admin',
+            'alamat' => 'Prujakan, Sinduharjo, Ngaglik',
+            'no_telpon' => '089529512721',
             'role' => 'Admin',
             'password' => bcrypt('admin'),
             'remember_token' => Str::random(10),

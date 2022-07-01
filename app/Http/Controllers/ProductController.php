@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $id = IdGenerator::generate(['table' => 'products', 'field' => 'kode_barang', 'length' => '5', 'prefix' => 'P']);
+        $id = IdGenerator::generate(['table' => 'products', 'field' => 'kode_barang', 'length' => '6', 'prefix' => 'B-']);
         return view('data_barang.add', compact('id'));
     }
 

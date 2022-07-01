@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('kode_pegawai')->unique();
             $table->string('username')->unique();
-            $table->string('role')->default('Employee');
+            $table->text('alamat')->nullable();
+            $table->string('no_telpon')->nullable();
+            $table->enum('role', ['admin', 'employee']);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

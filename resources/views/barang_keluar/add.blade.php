@@ -30,6 +30,13 @@
         @enderror
       </div>
       <div class="form-group col-8">
+        <label>Keterangan</label>
+        <select class="form-select" name="keterangan" id="keterangan">
+          <option value="terjual">Terjual</option>
+          <option value="kedaluwarsa">Kedaluwarsa</option>
+        </select>
+      </div>
+      <div class="form-group col-8">
         <label>Tanggal Keluar</label>
         <input type="date" name="tanggal_keluar" class="form-control @error('tanggal_keluar') is-invalid @enderror" id="tanggal_keluar" placeholder="Harga Satuan" value="{{ old('tanggal_keluar') }}">
         @error('tanggal_keluar')

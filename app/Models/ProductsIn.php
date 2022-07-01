@@ -11,6 +11,7 @@ class ProductsIn extends Model
     protected $table = 'products_ins';
     protected $fillable = [
         'kode_pegawai',
+        'kode_supplier',
         'nama_barang',
         'jumlah_barang',
         'harga_satuan',

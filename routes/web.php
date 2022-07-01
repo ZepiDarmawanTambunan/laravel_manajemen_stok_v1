@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CetakPDFController;
 use Carbon\Carbon;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,7 @@ use App\Models\Supplier;
 Route::get('/', function () {
     $total = Product::all()->count();
     $avail = Product::where('stok', '>', 10)->count();
-    $warning = Product::where('stok', '<=', 10)->count();
+    $warning = Product::where('stok', '<', 10)->where('stok', '>', 1)->count();
     $outOfStock = Product::where('stok', '=', 0)->count();
     $data = [
         'total' => $total,
@@ -76,10 +77,26 @@ Route::post('/daftar_barang/store', [ProductController::class, 'store'])->middle
 Route::post('/daftar_barang/update/{id}', [ProductController::class, 'update'])->middleware('auth');
 
 // Route Data Pegawai
-Route::resource('pegawai', EmployeeController::class);
+Route::get('/pegawai', [EmployeeController::class, 'index'])->middleware('auth');
+Route::get('/pegawai/add', [EmployeeController::class, 'create'])->middleware('auth');
+Route::get('/pegawai/edit/{id}', [EmployeeController::class, 'edit'])->middleware('auth');
+Route::get('/pegawai/delete/{id}', [EmployeeController::class, 'destroy'])->middleware('auth');
+Route::post('/pegawai/store', [EmployeeController::class, 'store'])->middleware('auth');
+Route::post('/pegawai/update/{id}', [EmployeeController::class, 'update'])->middleware('auth');
 
 // Route Supplier 
 Route::get('/supplier', [SupplierController::class, 'index'])->middleware('auth');
+Route::get('/supplier/add', [SupplierController::class, 'create'])->middleware('auth');
+Route::get('/supplier/edit/{id}', [SupplierController::class, 'edit'])->middleware('auth');
+Route::get('/supplier/delete/{id}', [SupplierController::class, 'destroy'])->middleware('auth');
+Route::post('/supplier/store', [SupplierController::class, 'store'])->middleware('auth');
+Route::post('/supplier/update/{id}', [SupplierController::class, 'update'])->middleware('auth');
+
+// Route cetakPDF
+Route::get('/cetakBM', [CetakPDFController::class, 'barang_masuk'])->middleware('auth');
+Route::get('/cetakBK', [CetakPDFController::class, 'barang_keluar'])->middleware('auth');
+Route::get('/cetak/bm', [CetakPDFController::class, 'cetak_bm'])->middleware('auth');
+Route::get('/cetak/bk', [CetakPDFController::class, 'cetak_bk'])->middleware('auth');
 
 
 

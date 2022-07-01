@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class EmployeeController extends Controller
 {
@@ -26,7 +29,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        $id = IdGenerator::generate(['table' => 'users', 'field' => 'kode_pegawai', 'length' => '6', 'prefix' => 'PG-']);
+        return view('pegawai.add', compact('id'));
     }
 
     /**
@@ -37,7 +41,22 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'kode_pegawai' => 'required|unique:users',
+            'username' => 'required|unique:users',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
+        $validatedData['password'] = bcrypt($request->password);
+
+        if($validatedData){
+            User::create($validatedData);
+            Alert::success('Success', 'Data user berhasil ditambahkan');
+            return redirect('/pegawai');
+        } else {
+            Alert::error('Error', 'Data user gagal ditambahkan');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -59,7 +78,8 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = User::where('id', $id)->first();
+        return view('pegawai.edit', compact('employee'));
     }
 
     /**
@@ -71,7 +91,20 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'kode_pegawai' => ['required', Rule::unique('users')->ignore($request->id)],
+            'username' => ['required', Rule::unique('users')->ignore($request->id)],
+            'role' => 'required',
+        ]);
+
+        if ($validatedData) {
+            User::where('id', $id)->update($validatedData);
+            Alert::success('Success', 'Data berhasil diupdate');
+            return redirect('/pegawai');
+        } else {
+            Alert::error('Error', 'Data gagal diupdate');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -82,6 +115,8 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        Alert::success('Success', 'Data berhasil dihapus');
+        return redirect()->back();
     }
 }

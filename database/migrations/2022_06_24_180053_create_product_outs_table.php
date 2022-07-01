@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kode_pegawai');
             $table->string('nama_barang');
             $table->integer('jumlah_barang');
+            $table->enum('keterangan', ['terjual', 'kedaluwarsa']);
             $table->integer('harga_satuan')->default(0);
             $table->integer('total_harga')->default(0);
             $table->date('tanggal_keluar');
