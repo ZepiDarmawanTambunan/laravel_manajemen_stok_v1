@@ -107,9 +107,6 @@
                                     <li>
                                         <h6 class="dropdown-header">Hello, {{ auth()->user()->username }}!</h6>
                                     </li>
-                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My Profile</a></li>
-                                    <hr class="dropdown-divider">
-                                    </li>
                                     <li><a class="dropdown-item" href="/logout"><i
                                     class="icon-mid bi bi-box-arrow-left me-2"></i>Logout</a>
                                     </li>

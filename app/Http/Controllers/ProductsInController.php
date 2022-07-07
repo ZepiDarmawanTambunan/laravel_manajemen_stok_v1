@@ -131,6 +131,16 @@ class ProductsInController extends Controller
         $stokBarang->stok -= $stokDiHapus->jumlah_barang;
         Product::where('nama_barang', $stokBarang->nama_barang)->update(['stok' => $stokBarang->stok]);
         ProductsIn::find($id)->delete();
-        return redirect()->back();
+        return response()->json([
+            'success' => 'Data berhasil dihapus',
+        ]);
+    }
+
+    public function filter(Request $request)
+    {
+        $start = $request->dari;
+        $end = $request->sampai;
+        $products = ProductsIn::whereBetween('tanggal_masuk', [$start, $end])->get();
+        return view('barang_masuk.barang_masuk', compact('products'));
     }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->text('alamat')->nullable();
             $table->string('no_telpon')->nullable();
-            $table->enum('role', ['admin', 'employee']);
+            $table->enum('role', ['Admin', 'Employee']);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -26,6 +26,15 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin'),
             'remember_token' => Str::random(10),
         ]);
+        User::create([
+            'kode_pegawai' => 'PG-002',
+            'username' => 'User',
+            'alamat' => 'Prujakan, Sinduharjo, Ngaglik',
+            'no_telpon' => '089529512728',
+            'role' => 'Employee',
+            'password' => bcrypt('user'),
+            'remember_token' => Str::random(10),
+        ]);
         // \App\Models\User::factory(10)->create();
         // ProductsIn::factory(20)->create();
     }

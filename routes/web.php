@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductOutController;
 use App\Http\Controllers\ProductsInController;
 use App\Http\Controllers\SupplierController;
 use App\Models\ProductOut;
+use App\Models\ProductsIn;
 use App\Models\Supplier;
 
 /*
@@ -98,6 +99,4 @@ Route::get('/cetakBK', [CetakPDFController::class, 'barang_keluar'])->middleware
 Route::get('/cetak/bm', [CetakPDFController::class, 'cetak_bm'])->middleware('auth');
 Route::get('/cetak/bk', [CetakPDFController::class, 'cetak_bk'])->middleware('auth');
 
-
-
-
+Route::post('/filter', [ProductsInController::class, 'filter'])->middleware('auth');

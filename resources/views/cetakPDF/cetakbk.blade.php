@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-5">
         <div class="text-center">
-            <h5>Data Barang Keluar/h4>
+            <h5>Data Barang Keluar</h5>
         </div>
         <table class='table table-bordered'>
             <tbody>

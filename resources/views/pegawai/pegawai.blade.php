@@ -33,7 +33,9 @@
                             <tr id="employee{{ $employee->id }}">
                                 <td>{{ $employee->kode_pegawai }}</td>  
                                 <td>{{ $employee->username }}</td>  
-                                <td>{{ $employee->role }}</td>  
+                                <td class="badges">
+                                    <span class="badge {{ $employee->role == 'Admin' ? 'bg-primary' : 'bg-secondary'}}">{{ $employee->role }}</span>
+                                </td>  
                                 <td>
                                 <a href="/pegawai/edit/{{ $employee->id }}" class="btn btn-warning btn-user"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-user btn-delete" data-id="{{ $employee->id }}" data-name="{{ $employee->username }}"><i class="fa-regular fa-trash-can"></i></a>

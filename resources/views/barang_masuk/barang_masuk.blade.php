@@ -17,9 +17,24 @@
 <div class="col-12">
   <div class="card">
       <div class="card-header">
-          <h4 class="card-title">Data Barang Masuk</h4>
-          <a href="/barang_masuk/add" class="btn btn-primary mt-3">Add Data</a>
+        <h4 class="card-title">Data Barang Masuk</h4>
+        <a href="/barang_masuk/add" class="btn btn-primary mt-3">Add Data</a>
       </div>
+      <h4 class="card-title mx-4">Filter Tanggal</h4>
+    <form method="POST" action="/filter">
+        @csrf
+        <div class="d-flex">
+            <div class="form-group mx-4 col-4">
+                <label for="">Dari :</label>
+                <input type="date" name="dari" id="dari" class="form-control">
+            </div>
+            <div class="form-group mx-4 col-4">
+                <label for="">Sampai :</label>
+                <input type="date" name="sampai" id="sampai" class="form-control">
+            </div>
+        </div>
+        <button type="submit" class="col-2 mx-4 btn btn-success" id="btn-filter">Filter</button>
+    </form>
       <div class="card-content">
           <div class="card-body">
               <!-- Table with outer spacing -->
@@ -58,7 +73,7 @@
                             @endforeach          
                           @else
                               <h4 class="text-center">
-                                  Data masih kosong
+                                  Data kosong
                               </h4>
                           @endif
                       </tbody>
@@ -87,7 +102,7 @@
                     type: "GET",
                     url: '/barang_masuk/delete/'+Id,
                     success: function (data) {
-                        Swal.fire('Deleted !', 'Data berhasil dihapus', 'success')
+                        Swal.fire('Deleted !', data.success , 'success')
                         $("#product"+Id).remove()              
                     },
                     error: function (data) {
@@ -98,6 +113,6 @@
                 Swal.fire('Data tidak jadi dihapus')
             }
         })
-    })
+    });
 </script>
 @endsection

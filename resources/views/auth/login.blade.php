@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="template/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="template/dist/assets/css/app.css">
     <link rel="stylesheet" href="template/dist/assets/css/pages/auth.css">
+
+    <link rel="icon" href="/img/store.png">
 </head>
 
 <body>
