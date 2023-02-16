@@ -12,11 +12,13 @@ class ProductsIn extends Model
     protected $fillable = [
         'kode_pegawai',
         'kode_supplier',
-        'nama_barang',
+        'merk_barang',
+        'ukuran',
         'jumlah_barang',
         'harga_satuan',
         'total_harga',
         'tanggal_masuk',
+        'expired',
     ];
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductOut;
+use App\Models\Code;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,8 @@ class ProductOutController extends Controller
     public function index()
     {
         $products = ProductOut::all();
-        return view('barang_keluar.barang_keluar', compact('products'));
+        $code = Code::first()->code;
+        return view('barang_keluar.barang_keluar', compact('products', 'code'));
     }
 
     /**
@@ -30,8 +32,9 @@ class ProductOutController extends Controller
      */
     public function create()
     {
-        $products = Product::orderBy('nama_barang', 'asc')->get();
-        return view('barang_keluar.add', compact('products'));
+        $products = Product::orderBy('merk_barang', 'asc')->get();
+        $merkBarang = $products->pluck('merk_barang')->unique();
+        return view('barang_keluar.add', compact('products', 'merkBarang'));
     }
 
     /**
@@ -44,40 +47,42 @@ class ProductOutController extends Controller
     {
         $validatedData = [];
         $validatedData = $request->validate([
-            'nama_barang' => 'required',
+            'merk_barang' => 'required',
             'jumlah_barang' => 'required|numeric',
             'keterangan' => 'required',
-            'tanggal_keluar' => 'required'
+            'tanggal_keluar' => 'required',
+            'ukuran' => 'required',
         ]);
-        $getBarang = Product::where('nama_barang', $request->nama_barang)->first();
-        
+        $getBarang = Product::where('merk_barang', $request->merk_barang)
+            ->where('ukuran', $request->ukuran)->first();
+
         $validatedData['kode_pegawai'] = auth()->user()->kode_pegawai;
-        if($request->keterangan == 'terjual'){
-            $validatedData['harga_satuan'] = $getBarang->harga_satuan;
-            $validatedData['total_harga'] = $request->jumlah_barang * $getBarang->harga_satuan;
+        if ($request->keterangan == 'terjual') {
+            $validatedData['harga_satuan'] = $getBarang->harga_jual;
+            $validatedData['total_harga'] = $request->jumlah_barang * $getBarang->harga_jual;
         } else {
-            $validatedData['harga_satuan'] = $getBarang->harga_satuan;
-            $validatedData['total_harga'] = $request->jumlah_barang * $getBarang->harga_satuan;
+            $validatedData['harga_satuan'] = $getBarang->harga_jual;
+            $validatedData['total_harga'] = $request->jumlah_barang * $getBarang->harga_jual;
             $validatedData['total_harga'] = -abs($validatedData['total_harga']);
         }
-        
+
         if ($validatedData) {
-            if ($getBarang->stok > $request->jumlah_barang){
-                $product = Product::where('nama_barang', $request->nama_barang)->first();
+            if ($getBarang->stok >= $request->jumlah_barang) {
+                $product = Product::where('merk_barang', $request->merk_barang)->first();
                 $product->stok = (int)$product->stok - (int)$request->jumlah_barang;
-                Product::where('nama_barang', $request->nama_barang)->update(['stok' => $product->stok]);
+                Product::where('merk_barang', $request->merk_barang)
+                    ->where('ukuran', $request->ukuran)->update(['stok' => $product->stok]);
                 ProductOut::create($validatedData);
                 Alert::success('Success', 'Data berhasil ditambahkan');
                 return redirect('/barang_keluar');
             } else {
                 Alert::error('Gagal !', 'Jumlah barang keluar melebihi stok barang saat ini !');
-                return redirect()->back()->withInput($request->all());
+                return back();
             }
         } else {
             Alert::error('Error', 'Data gagal ditambahkan');
-            return redirect()->back();
+            return back();
         }
-
     }
 
     /**
@@ -100,7 +105,8 @@ class ProductOutController extends Controller
     public function edit($id)
     {
         $product = DB::table('product_outs')->where('id', $id)->first();
-        return view('barang_keluar.edit', compact('product'));
+        $merkBarang = Product::pluck('merk_barang')->unique();
+        return view('barang_keluar.edit', compact('product', 'merkBarang'));
     }
 
     /**
@@ -116,34 +122,42 @@ class ProductOutController extends Controller
             'jumlah_barang' => 'required|integer',
             'harga_satuan' => 'required|integer',
             'tanggal_keluar' => 'required|date',
+            'ukuran' => 'nullable',
         ]);
 
-        $getBarang = Product::where('nama_barang', $request->nama_barang)->first();
+        $validatedData['total_harga'] = $validatedData['harga_satuan'] * $validatedData['jumlah_barang'];
+        $getBarang = Product::where('merk_barang', $request->merk_barang)
+            ->where('ukuran', $request->ukuran)->first();
+        $stokVal = $getBarang->stok;
+
         $stokBKLama = ProductOut::where('id', $id)->first();
+
         // dd($stokBKLama->jumlah_barang);
-
         if ($validatedData) {
-            
-            if ($request->jumlah_barang) {
-                $getBarang->update(['stok' => $stokBKLama->jumlah_barang]);
 
-                if ($getBarang->stok > $request->jumlah_barang) {
+            if ($request->jumlah_barang) {
+                // $getBarang->update(['stok' => $stokBKLama->jumlah_barang]);
+
+                if ($getBarang->stok + $stokBKLama->jumlah_barang >= $request->jumlah_barang) {
                     $stokBK = ProductOut::where('id', $id)->first();
-                    $stokBarang = Product::where('nama_barang', $stokBK->nama_barang)->first();
-                    $stokBarang->stok += $stokBK->jumlah_barang ;
+                    $stokBarang = Product::where('merk_barang', $stokBK->merk_barang)
+                        ->where('ukuran', $stokBK->ukuran)->first();
+                    $stokBarang->stok += $stokBK->jumlah_barang;
                     $updateStok = $stokBarang->stok - $request->jumlah_barang;
-                    Product::where('nama_barang', $stokBarang->nama_barang)->update(['stok' => $updateStok]);
+                    Product::where('merk_barang', $stokBarang->merk_barang)
+                        ->where('ukuran', $stokBarang->ukuran)->update(['stok' => $updateStok]);
                     ProductOut::where('id', $id)->update($validatedData);
                     Alert::success('Success', 'Data berhasil diupdate');
                     return redirect('/barang_keluar');
                 } else {
                     Alert::error('Gagal !', 'Jumlah barang keluar melebihi stok barang saat ini !');
-                    return redirect()->back()->withInput($request->all());
+                    return back();
                 }
             }
         } else {
+            $getBarang->update(['stok' => $stokVal]);
             Alert::error('Error', 'Data gagal ditambahkan');
-            return redirect()->back();
+            return back();
         }
     }
 
@@ -156,10 +170,12 @@ class ProductOutController extends Controller
     public function destroy($id)
     {
         $stokDiHapus = ProductOut::where('id', $id)->first();
-        $stokBarang = Product::where('nama_barang', $stokDiHapus->nama_barang)->first();
+        $stokBarang = Product::where('merk_barang', $stokDiHapus->merk_barang)
+            ->where('ukuran', $stokDiHapus->ukuran)->first();
         $stokBarang->stok += $stokDiHapus->jumlah_barang;
-        Product::where('nama_barang', $stokBarang->nama_barang)->update(['stok' => $stokBarang->stok]);
+        Product::where('merk_barang', $stokBarang->merk_barang)
+            ->where('ukuran', $stokBarang->ukuran)->update(['stok' => $stokBarang->stok]);
         ProductOut::find($id)->delete();
-        return redirect()->back();
+        return back();
     }
 }

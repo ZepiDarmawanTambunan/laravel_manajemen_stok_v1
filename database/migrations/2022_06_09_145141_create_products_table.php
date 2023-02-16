@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kode_barang')->unique();
-            $table->string('nama_barang')->unique();
-            $table->integer('harga_satuan');
+            $table->string('kode_barang');
+            $table->string('merk_barang');
+            $table->string('kategori_barang');
+            $table->string('ukuran')->default('-');
             $table->integer('stok')->default(0);
+            $table->integer('harga_jual')->default(0);
+            $table->date('expired');
             $table->timestamps();
         });
     }

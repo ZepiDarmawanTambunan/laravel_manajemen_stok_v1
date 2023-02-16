@@ -10,9 +10,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductOutController;
 use App\Http\Controllers\ProductsInController;
 use App\Http\Controllers\SupplierController;
-use App\Models\ProductOut;
-use App\Models\ProductsIn;
-use App\Models\Supplier;
+use App\Http\Controllers\CetakStrukController;
+use App\Http\Controllers\CodeVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +27,10 @@ use App\Models\Supplier;
 // Route Dashboard
 Route::get('/', function () {
     $total = Product::all()->count();
-    $avail = Product::where('stok', '>', 10)->count();
-    $warning = Product::where('stok', '<', 10)->where('stok', '>', 1)->count();
-    $outOfStock = Product::where('stok', '=', 0)->count();
+    $avail = Product::where('stok', '>', 10)->get();
+    $warning = Product::where('stok', '<', 10)->where('stok', '>', 1)->get();
+    $outOfStock = Product::where('stok', '=', 0)->get();
+
     $data = [
         'total' => $total,
         'avail' => $avail,
@@ -43,23 +43,23 @@ Route::get('/', function () {
 
 // Route Login & Logout
 Route::get('/login', [LoginController::class, 'index'])->name('login')
-->middleware('guest');
+    ->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
 // Route Barang Masuk
 Route::get('/barang_masuk', [ProductsInController::class, 'index'])
-->middleware('auth');
+    ->middleware('auth');
 Route::get('/barang_masuk/add', [ProductsInController::class, 'create'])
-->middleware('auth');
+    ->middleware('auth');
 Route::get('/barang_masuk/edit/{id}', [ProductsInController::class, 'edit'])
-->middleware('auth');
+    ->middleware('auth');
 Route::get('/barang_masuk/delete/{id}', [ProductsInController::class, 'destroy'])
-->middleware('auth');
+    ->middleware('auth');
 Route::post('/barang_masuk/store', [ProductsInController::class, 'store'])
-->middleware('auth');
+    ->middleware('auth');
 Route::post('/barang_masuk/update/{id}', [ProductsInController::class, 'update'])
-->middleware('auth');
+    ->middleware('auth');
 
 // Route Data Barang Keluar
 Route::get('/barang_keluar', [ProductOutController::class, 'index'])->middleware('auth');
@@ -85,7 +85,7 @@ Route::get('/pegawai/delete/{id}', [EmployeeController::class, 'destroy'])->midd
 Route::post('/pegawai/store', [EmployeeController::class, 'store'])->middleware('auth');
 Route::post('/pegawai/update/{id}', [EmployeeController::class, 'update'])->middleware('auth');
 
-// Route Supplier 
+// Route Supplier
 Route::get('/supplier', [SupplierController::class, 'index'])->middleware('auth');
 Route::get('/supplier/add', [SupplierController::class, 'create'])->middleware('auth');
 Route::get('/supplier/edit/{id}', [SupplierController::class, 'edit'])->middleware('auth');
@@ -99,4 +99,18 @@ Route::get('/cetakBK', [CetakPDFController::class, 'barang_keluar'])->middleware
 Route::get('/cetak/bm', [CetakPDFController::class, 'cetak_bm'])->middleware('auth');
 Route::get('/cetak/bk', [CetakPDFController::class, 'cetak_bk'])->middleware('auth');
 
+// cetak struk
+Route::get('/cetak_struk/form', [CetakStrukController::class, 'cetak_struk_form'])->middleware('auth');
+Route::get('/cetak_struk/search', [CetakStrukController::class, 'cetak_struk_search'])->middleware('auth');
+Route::post('/cetak_struk/add', [CetakStrukController::class, 'cetak_struk_add'])->middleware('auth');
+Route::get('/cetak_struk/plus/{id}', [CetakStrukController::class, 'cetak_struk_plus'])->middleware('auth');
+Route::get('/cetak_struk/min/{id}', [CetakStrukController::class, 'cetak_struk_min'])->middleware('auth');
+Route::post('/cetak_struk', [CetakStrukController::class, 'cetak_struk'])->middleware('auth');
+
+// code verification
+Route::get('/code_verification/form', [CodeVerificationController::class, 'form'])->middleware('auth');
+Route::post('/code_verification/update', [CodeVerificationController::class, 'update'])->middleware('auth');
+
+// another
+Route::get('/merk_barang/{value}/ukuran', [ProductController::class, 'getUkuran'])->middleware('auth');
 Route::post('/filter', [ProductsInController::class, 'filter'])->middleware('auth');

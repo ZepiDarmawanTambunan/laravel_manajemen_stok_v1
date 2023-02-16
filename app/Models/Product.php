@@ -11,7 +11,11 @@ class Product extends Model
     protected $table = 'products';
     protected $fillable = [
         'kode_barang',
-        'nama_barang',
-        'harga_satuan'
+        'merk_barang',
+        'kategori_barang',
+        'ukuran',
+        'stok',
+        'harga_jual',
+        'expired'
     ];
 }

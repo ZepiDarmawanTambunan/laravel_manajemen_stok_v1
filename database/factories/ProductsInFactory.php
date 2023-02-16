@@ -18,10 +18,12 @@ class ProductsInFactory extends Factory
     public function definition()
     {
         return [
-            'nama_barang' => $this->faker->unique()->word(),
+            'merk_barang' => $this->faker->unique()->word(),
             'jumlah_barang' => $this->faker->numberBetween(12, 41),
             'harga_satuan' => $this->faker->numberBetween(2000, 20000),
+            'ukuran' => $this->faker->numberBetween(100, 10000),
             'tanggal_masuk' => $this->faker->dateTimeThisMonth(),
+            'expired' => $this->faker->dateTimeThisMonth(),
         ];
     }
 }

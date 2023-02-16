@@ -19,7 +19,6 @@ class UserFactory extends Factory
     {
         return [
             'username' => $this->faker->unique()->name(),
-            'role' => 'employee',
             'password' => bcrypt('canuguess'),
             'remember_token' => Str::random(10),
         ];

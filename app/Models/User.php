@@ -21,7 +21,6 @@ class User extends Authenticatable
         'username',
         'password',
         'kode_pegawai',
-        'role',
         'alamat',
         'no_telpon'
     ];

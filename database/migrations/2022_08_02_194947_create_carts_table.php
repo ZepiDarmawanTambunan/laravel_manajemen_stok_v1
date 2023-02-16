@@ -13,17 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products_ins', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->string('kode_pegawai');
-            $table->string('kode_supplier');
-            $table->string('merk_barang');
-            $table->string('ukuran')->default('-');
-            $table->integer('jumlah_barang');
-            $table->integer('harga_satuan');
-            $table->integer('total_harga');
-            $table->date('tanggal_masuk');
-            $table->date('expired');
+            $table->string('kode_barang');
+            $table->integer('jumlah_barang')->default(0);
             $table->timestamps();
         });
     }
@@ -35,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products_ins');
+        Schema::dropIfExists('carts');
     }
 };

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Code;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -19,7 +20,8 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = User::all();
-        return view('pegawai.pegawai', compact('employees'));
+        $code = Code::first()->code;
+        return view('pegawai.pegawai', compact('employees', 'code'));
     }
 
     /**
@@ -45,7 +47,6 @@ class EmployeeController extends Controller
             'kode_pegawai' => 'required|unique:users',
             'username' => 'required|unique:users',
             'password' => 'required',
-            'role' => 'required',
         ]);
         $validatedData['password'] = bcrypt($request->password);
 
@@ -94,7 +95,6 @@ class EmployeeController extends Controller
         $validatedData = $request->validate([
             'kode_pegawai' => ['required', Rule::unique('users')->ignore($request->id)],
             'username' => ['required', Rule::unique('users')->ignore($request->id)],
-            'role' => 'required',
         ]);
 
         if ($validatedData) {

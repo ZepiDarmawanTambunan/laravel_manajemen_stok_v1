@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('codes', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pegawai')->unique();
-            $table->string('username')->unique();
-            $table->text('alamat')->nullable();
-            $table->string('no_telpon')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('code');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('codes');
     }
 };

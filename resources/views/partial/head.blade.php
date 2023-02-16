@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Toko Jago</title>
+<title>Toko LY Jambi Grosir</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -18,4 +18,4 @@
 <link rel="stylesheet" href="../../template/dist/assets/css/app.css">
 <link rel="shortcut icon" href="../../template/dist/assets/images/favicon.svg" type="image/x-icon">
 
-<link rel="icon" href="/img/store.png">
+<link rel="icon" href="/img/logo.png">

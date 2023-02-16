@@ -7,7 +7,13 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body>
+<body>    
+    <style type="text/css">
+        table tr td,
+        table tr th {
+            font-size: 9pt;
+        }
+    </style>
     <div class="container mt-5">
         <div class="text-center">
             <h5>Data Barang Keluar</h5>
@@ -18,7 +24,8 @@
                     <tr>
                         <th>No</th>
                         <th>Kode Pegawai</th>
-                        <th>Nama Barang</th>
+                        <th>Merk Barang</th>
+                        <th>Ukuran (ml)</th>
                         <th>Jumlah Barang</th>
                         <th>Keterangan</th>
                         <th>Harga Satuan</th>
@@ -32,7 +39,8 @@
                         <tr id="product{{ $product->id }}">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $product->kode_pegawai }}</td>
-                            <td>{{ $product->nama_barang }}</td>
+                            <td>{{ $product->merk_barang }}</td>
+                            <td>{{ $product->ukuran }}</td>
                             <td>{{ $product->jumlah_barang }}</td>
                             <td>{{ $product->keterangan }}</td>
                             <td>Rp. {{ number_format($product->harga_satuan, 0, '.', '.') }}</td>
